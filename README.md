@@ -76,6 +76,12 @@ By default, the language-specific words is obtained from the `translation.json` 
 
 create translation file, `[YOUR_DESIGNATED_FILE_NAME].json` in locale named directory.
 
+And add locale like `"fr"` in `app/[lng]/i18n/settings.ts` at `languages` array constant.
+
+```ts
+export const languages = [fallbackLng, "en", "fr"];
+```
+
 for example, if you have created `spacial.json` in locale directory, you call `useTraslation` function like below:
 
 ```tsx
