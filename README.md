@@ -76,13 +76,13 @@ By default, the language-specific words is obtained from the `translation.json` 
 
 create translation file, `[YOUR_DESIGNATED_FILE_NAME].json` in locale named directory.
 
-for example, if you have created `spacial.json` in locale directory, you call `t` function like below:
+for example, if you have created `spacial.json` in locale directory, you call `useTraslation` function like below:
 
 ```tsx
-      <p>{t("HELLO", "special")}</p>   
+ const { t } = await useTranslation(params.lng, "special");
 ```
 
-Specify the filename you have designated **as the second argument** of the `t` function, as in the above example.
+Specify the filename you have designated **as the second argument** of the `useTranslation` function, as in the above example.
 
 ***NOTE:*** If you add a new language file, please make sure that there are no undefined key-values in all same named language files in each locale directories.
 
