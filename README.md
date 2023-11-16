@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app), plus  **Internationalization(i18n)**.
 
 ## Getting Started
 
@@ -16,9 +16,75 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Default locale is Japanese.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+(auto redirect to [http://localhost:3000/ja](http://localhost:3000/ja)).
+
+Or open [http://localhost:3000/en](http://localhost:3000/en) with your browser to see the US translation result.
+
+You can start editing the page by modifying `app/[lng]/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Biz UDP Gothic/M Plus1 code, a custom Google Font.
+
+## i18n
+
+### how to use.
+
+1. create locale directory on `app/[lng]/i18n/locales/`.
+- For example, if you'd like to use French translation, create French locale `fr` directory.
+2. create translation file, `translation.json` in locale named directory, like `fr`.
+- traslation.json example:
+```json
+  { 
+    "HELLO": "Bonjour",
+    "TITLE.STRING": "ceci est une chaîne de titre."
+  }
+```
+3. use `useTranslation` function on your server/client side code.
+  - example code(server):
+```tsx
+import { useTranslation } from "@/app/[lng]/i18n";
+
+const page = async ({ params }: { params: { lng: string } }) => {
+  const { t } = await useTranslation(params.lng);
+  return (
+    <>
+      <p>{t("TITLE.STRING")}</p>   
+    </>
+  );
+};
+export default page;
+```
+  -  example code(client):
+```tsx
+"use client";
+import { useTranslation } from "@/app/[lng]/i18n/client";
+const page = ({ params }: { params: { lng: string } }) => {
+  const { t } = useTranslation(params.lng);
+  return (
+    <>
+      <p>{t("HELLO")}</p>   
+    </>
+  );
+};
+export default page;
+```
+
+## Additional infomation.
+
+By default, the language-specific words is obtained from the `translation.json` file, but it is also possible to define it with a different file name.
+
+create translation file, `[YOUR_DESIGNATED_FILE_NAME].json` in locale named directory.
+
+for example, if you have created `spacial.json` in locale directory, you call `t` function like below:
+
+```tsx
+      <p>{t("HELLO", "special")}</p>   
+```
+
+Specify the filename you have designated **as the second argument** of the `t` function, as in the above example.
+
+***NOTE:*** If you add a new language file, please make sure that there are no undefined key-values in all same named language files in each locale directories.
 
 ## Learn More
 
