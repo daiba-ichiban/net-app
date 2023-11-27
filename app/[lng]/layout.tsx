@@ -34,7 +34,7 @@ export default function RootLayout({
       <head />
       <body
         className={cn(
-          "min-h-screen bg-background font-bizudp antialiased",
+          "min-h-screen bg-background font-bizudp antialiased prose",
           fontBizUdpGothic.variable,
           fontCode.variable
         )}
